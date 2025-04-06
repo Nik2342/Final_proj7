@@ -1,0 +1,24 @@
+{% extends 'mailing/home.html' %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row">
+        {% for message in object_list %}
+        <div class="col-12 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <p class="card-text">Тема письма: {{ message.mail_topic }}</p>
+              <p class="card-text">Текст письма: {{ message.text|truncatechars:100 }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:message_detail' message.pk %}">Подробнее</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+</div>
+{% endblock %}

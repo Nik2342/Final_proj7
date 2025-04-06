@@ -1,0 +1,52 @@
+{% extends 'mailing/home.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Статистика рассылок</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Успешные попытки</h5>
+                    <p class="h3">{{ success_attempts }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Неуспешные попытки</h5>
+                    <p class="h3">{{ failed_attempts }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mb-3">Детальная информация</h3>
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Рассылка</th>
+                <th>Успешные</th>
+                <th>Неуспешные</th>
+                <th>Всего</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in mailing_stats %}
+            <tr>
+                <td>{{ stat.mailing.message.mail_topic }}</td>
+                <td>{{ stat.success_count }}</td>
+                <td>{{ stat.failed_count }}</td>
+                <td>{{ stat.total_count }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Нет данных о рассылках</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
