@@ -11,13 +11,11 @@ USER = os.getenv("DBUSER")
 PASSWORD = os.getenv("DBPASSWORD")
 HOST = os.getenv("DBHOST")
 PORT = os.getenv("DBPORT")
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-5@=i1oe2gz*ev1qtb76+)%4m52a+@8p0l&_@7puz$a0v5!0z*i"
+
 
 DEBUG = True
 
@@ -119,17 +117,19 @@ LOGIN_REDIRECT_URL = "mailing:home"
 LOGOUT_REDIRECT_URL = "mailing:home"
 LOGIN_URL = "users:login"
 
-EMAIL_HOST = "smtp.mail.ru"
-EMAIL_PORT = 2525
-# EMAIL_HOST_USER = EMAIL_HOST_USER
-# EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == 'True'
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL") == 'True'
 
 CACHE_ENABLED = True
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://localhost:6379",
+        "LOCATION": os.getenv("REDIS_LOCATION"),
     }
 }
+
+SECRET_KEY = os.getenv("SECRET_KEY")
